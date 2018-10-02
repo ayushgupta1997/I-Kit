@@ -1,3 +1,9 @@
+
+/*
+7
+1 9 3 10 4 20 2
+output : 4 {1,3,2,4}
+*/
 int Solution::longestConsecutive(const vector<int> &A) {
     int n = A.size();
     unordered_set<int> s;
