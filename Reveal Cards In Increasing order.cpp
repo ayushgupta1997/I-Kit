@@ -24,3 +24,27 @@ public:
         return ans;
     }
 };
+
+
+// Method 2 : using Queue : Runtime is  8ms
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        sort(deck.begin(), deck.end());
+        int n = deck.size();
+        queue<int> que;
+        for (int i = 0; i < n; i++) {
+            que.push(i);
+        }
+        vector<int> ans(n);
+        for (int i = 0; i < n; i++) {   // simply doing operations n times and ensuring that we get the correct increasing order in the ans array
+            int temp = (int)que.front();
+            que.pop();
+            ans[temp] = deck[i];
+            temp = que.front();
+            que.pop();
+            que.push(temp);
+        }
+        return ans;
+    }
+};
