@@ -1,0 +1,87 @@
+// Checking of Two expressions 
+/* 
+Input
+1
+-x-(y+z)-(c+f-(k+h))-p
+-x-y-z-c-f+k+h-p
+Output
+YES
+*/
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool check(string x, int i) {
+	if(i == 0) {
+		return true; 
+	}
+	if(x[i-1] == '-') {
+		return false;
+	}
+	return true;
+}
+
+void evaluate(string x, bool add, vector<int> &v) {
+	int len = x.length();
+	int i = 0;
+	stack<bool> stk;
+	stk.push(true);
+	while(x[i]!='\0') {
+		if(x[i]=='-' || x[i] == '+') {
+			i++;
+			continue;
+		}
+		if(x[i]=='(') {
+			if(check(x, i)) {
+				stk.push(stk.top());
+			} else {
+				stk.push(!stk.top());
+			}
+		}
+		else if(x[i]==')') {
+			stk.pop();
+		}
+		else {
+			if(stk.top())
+				v[x[i]-'a'] += check(x, i)?add?1:-1:add?-1:1;
+			else {
+				v[x[i]-'a'] += check(x, i)?add?-1:1:add?1:-1;
+			}	
+		}
+		i++;
+
+	}
+}
+
+bool solve(string a, string b, vector<int> v) {
+	
+	evaluate(a, true, v);
+	evaluate(b, false, v);
+	for (int i = 0; i < 26; i++) {
+		//cout<< v[i] << " ";
+		if(v[i] != 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+int main() {
+	int t;
+	string a,b;
+	cin >> t;
+	cin.ignore();
+	while(t--) {
+	    vector<int> v(26,0);
+		cin >> a;
+		cin >> b;
+		if(solve(a, b, v)) {
+			cout << "YES\n"; 
+		} else {
+			cout << "NO\n";
+		}
+		//v.clear();
+	}
+	return 0;
+}
