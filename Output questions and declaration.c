@@ -1,3 +1,16 @@
+2D arrays in c++:
+int** dp;
+dp = new int*[n];
+ 
+// loop to create the table dynamically
+for (int i = 0; i < n; i++)
+    dp[i] = new int[W + 1];
+
+
+
+
+
+
 1.
 #include<stdio.h>
 #define pxx(a,v) printf("val=%d",a##v)
